@@ -2,100 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <title>Solfeando Kids</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solfeando Kids 🎵</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Music&display=swap" rel="stylesheet">
-  
-  <!-- ✅ Favicon inline para evitar 404 -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
-  
-  <!-- ✅ Howler.js desde jsDelivr -->
+  <!-- OpenSheetMusicDisplay desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/opensheetmusicdisplay@1.10.4/build/opensheetmusicdisplay.min.js"></script>
+  <!-- Howler para sonidos -->
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
-  <!-- 👇 Esta es la versión UMD que expone VerovioToolkit en window -->
-  <script src="https://www.verovio.org/javascript/4.1.0/verovio-toolkit-wasm.js"></script>
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net https://www.verovio.org 'unsafe-inline';">
 </head>
 <body>
-
-  <!-- PANTALLA DE INICIO -->
-  <div id="inicio" class="pantalla activa">
+  <div id="main-menu" class="screen active">
     <h1>🎵 Solfeando Kids 🎵</h1>
-    <p>¡Aprende música jugando como en EarMaster, pero para niños!</p>
-    <div class="botones-inicio">
-      <button class="btn-modulo" onclick="irAModulo('notas')">
-        <span>NOTAS MUSICALES</span>
-        <div>♪ 𝄞</div>
-      </button>
-      <button class="btn-modulo" onclick="irAModulo('oido')">
-        <span>OÍDO MÁGICO</span>
-        <div>👂🎶</div>
-      </button>
-      <button class="btn-modulo" onclick="irAModulo('ritmo')">
-        <span>TALLER DE RITMO</span>
-        <div>🥁⏱️</div>
-      </button>
+    <div class="nav-buttons">
+      <button id="btn-notas"><img src="img/clave_sol.png" alt="">NOTAS MUSICALES</button>
+      <button id="btn-oido"><img src="img/oido.png" alt="">OÍDO MÁGICO</button>
+      <button id="btn-ritmo"><img src="img/tambor.png" alt="">TALLER DE RITMO</button>
     </div>
   </div>
-
-  <!-- MÓDULO 1: NOTAS MUSICALES -->
-  <div id="notas" class="pantalla">
-    <h2>🎼 NOTAS MUSICALES</h2>
-    <div id="selector-clave">
-      <p>¿En qué clave quieres aprender?</p>
-      <button onclick="iniciarModoAprendizaje('sol')">Clave de Sol</button>
-      <button onclick="iniciarModoAprendizaje('fa')">Clave de Fa</button>
-    </div>
-
-    <div id="aprendizaje" style="display:none;">
-      <div id="pentagrama-aprendizaje"></div>
-      <button id="btn-jugar" onclick="iniciarTest()">¡A Jugar!</button>
-    </div>
-
-    <div id="test" style="display:none;">
-      <div id="contador">Pregunta 1/10</div>
-      <div id="pentagrama-test"></div>
-      <div id="opciones-test"></div>
-    </div>
-
-    <div id="resultados" style="display:none;">
-      <h3>🎉 ¡Terminaste!</h3>
-      <p id="puntuacion-final">Has acertado 0 de 10 notas.</p>
-      <button onclick="repetirTest()">Repetir</button>
-      <button onclick="cambiarClave()">Cambiar Clave</button>
-      <button onclick="volverInicio()">Menú Principal</button>
-    </div>
+  <div id="notas" class="screen">
+    <!-- Aquí irá el módulo de notas musicales -->
   </div>
-
-  <!-- MÓDULO 2: OÍDO MÁGICO -->
-  <div id="oido" class="pantalla">
-    <h2>👂 OÍDO MÁGICO</h2>
-    <p>Escucha y elige la nota correcta</p>
-    <div id="pentagrama-oido"></div>
-    <div id="notas-fantasma"></div>
-    <button id="btn-escuchar" onclick="reproducirNotaReferencia()">¡Empezar!</button>
-    <div id="contador-oido">Aciertos: 0/10</div>
-    <button id="btn-volver-oido" style="display:none;" onclick="volverInicio()">Menú Principal</button>
+  <div id="oido" class="screen">
+    <!-- Aquí irá el módulo de oído mágico -->
   </div>
-
-  <!-- MÓDULO 3: TALLER DE RITMO -->
-  <div id="ritmo" class="pantalla">
-    <h2>🥁 TALLER DE RITMO</h2>
-    <p>Completa los compases arrastrando las figuras</p>
-    <div id="info-compas">Compás: <span id="tipo-compas">4/4</span></div>
-    <div id="compases-ritmo"></div>
-    <div id="caja-herramientas">
-      <div class="figura-musical" draggable="true" data-valor="1" title="Negra (1 tiempo)">♩</div>
-      <div class="figura-musical" draggable="true" data-valor="2" title="Blanca (2 tiempos)">𝅗𝅥</div>
-      <div class="figura-musical" draggable="true" data-valor="0.5" title="Corchea (0.5 tiempos)">♪</div>
-      <div class="figura-musical" draggable="true" data-valor="1" title="Silencio de negra">𝄽</div>
-    </div>
-    <button id="btn-reproducir-ritmo" style="display:none;" onclick="reproducirRitmo()">¡Reproducir Ritmo!</button>
-    <button onclick="nuevoRitmo()" style="margin-top:20px;">Nuevo Ritmo</button>
-    <button onclick="volverInicio()" style="margin-top:10px;">Menú Principal</button>
+  <div id="ritmo" class="screen">
+    <!-- Aquí irá el módulo de ritmo -->
   </div>
-
-  <!-- ✅ Script.js al final - como módulo -->
   <script type="module" src="script.js"></script>
 </body>
 </html>
