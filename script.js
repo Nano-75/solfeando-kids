@@ -231,14 +231,25 @@ function renderPentagramaOido(elid, idx) {
 }
 function xmlNotasFantasmas(idx) {
   let notes = "";
-  for(let i=0;i<7;i++) {
-    notes += `<note default-x="${i*30}"${i==idx?`><pitch><step>${notasNombres[i][0].toUpperCase()}</step><octave>4</octave></pitch><duration>4</duration><type>quarter</type></note>`:`>
-      <pitch><step>${notasNombres[i][0].toUpperCase()}</step><octave>4</octave></pitch>
-      <duration>4</duration><type>quarter</type>
-      <notations><articulations><accent/></articulations></notations>
-      <notations><ornaments><tremolo type="single" default-y="-10"/></ornaments></notations>
-      <notations><other-notation color="#bbbbbb"/></notations>
-    </note>`;
+  for (let i = 0; i < 7; i++) {
+    if (i == idx) {
+      // Nota sólida (la pregunta)
+      notes += `<note default-x="${i*30}">
+        <pitch><step>${notasNombres[i][0].toUpperCase()}</step><octave>4</octave></pitch>
+        <duration>4</duration><type>quarter</type>
+      </note>`;
+    } else {
+      // Notas fantasma translúcidas
+      notes += `<note default-x="${i*30}">
+        <pitch><step>${notasNombres[i][0].toUpperCase()}</step><octave>4</octave></pitch>
+        <duration>4</duration><type>quarter</type>
+        <notations>
+          <articulations><accent/></articulations>
+          <ornaments><tremolo type="single" default-y="-10"/></ornaments>
+          <other-notation color="#bbbbbb"/>
+        </notations>
+      </note>`;
+    }
   }
   return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <score-partwise version="3.1">
