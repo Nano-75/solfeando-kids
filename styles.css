@@ -99,7 +99,6 @@ button:active {
   box-shadow: 0 2px 0 #f4511e;
 }
 
-/* ===== VEROVIO CONTAINERS ===== */
 #pentagrama-aprendizaje,
 #pentagrama-test,
 #pentagrama-oido {
@@ -112,7 +111,6 @@ button:active {
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* ===== NOTAS FANTASMA ===== */
 #notas-fantasma {
   display: flex;
   justify-content: center;
@@ -144,7 +142,6 @@ button:active {
   border-color: #f44336;
 }
 
-/* ===== RITMO ===== */
 .compas-ritmo {
   width: 200px;
   height: 80px;
@@ -202,7 +199,6 @@ button:active {
   cursor: grabbing;
 }
 
-/* Feedback */
 .feedback {
   padding: 15px;
   border-radius: 12px;
@@ -232,7 +228,6 @@ button:active {
   100% { opacity: 0; }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   h1 { font-size: 2em; }
   .btn-modulo { font-size: 1.2em; padding: 15px; }

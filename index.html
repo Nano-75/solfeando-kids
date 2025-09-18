@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://unpkg.com 'unsafe-inline';">
   <title>Solfeando Kids 🎵</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Music&display=swap" rel="stylesheet">
   
-  <!-- Verovio desde CDN -->
+  <!-- ✅ Librerías desde CDN confiables -->
   <script src="https://unpkg.com/verovio@4.0.0/verovio.js"></script>
-  
-  <!-- Howler.js para sonidos (ligero y potente) -->
   <script src="https://unpkg.com/howler@2.2.4/dist/howler.min.js"></script>
-  <script src="script.js"></script>
+  
+  <!-- ✅ Política de seguridad para permitir scripts externos -->
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://unpkg.com 'unsafe-inline';">
 </head>
 <body>
+
+  <!-- PANTALLA DE INICIO -->
   <div id="inicio" class="pantalla activa">
     <h1>🎵 Solfeando Kids 🎵</h1>
     <p>¡Aprende música jugando como en EarMaster, pero para niños!</p>
@@ -82,7 +83,6 @@
     <div id="info-compas">Compás: <span id="tipo-compas">4/4</span></div>
     <div id="compases-ritmo"></div>
     <div id="caja-herramientas">
-      <!-- Figuras rítmicas con Noto Music -->
       <div class="figura-musical" draggable="true" data-valor="1" title="Negra (1 tiempo)">♩</div>
       <div class="figura-musical" draggable="true" data-valor="2" title="Blanca (2 tiempos)">𝅗𝅥</div>
       <div class="figura-musical" draggable="true" data-valor="0.5" title="Corchea (0.5 tiempos)">♪</div>
@@ -93,6 +93,7 @@
     <button onclick="volverInicio()" style="margin-top:10px;">Menú Principal</button>
   </div>
 
+  <!-- ✅ ¡IMPORTANTE! Cargar script.js AL FINAL -->
   <script src="script.js"></script>
 </body>
 </html>

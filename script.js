@@ -11,35 +11,33 @@ let compasesRitmo = [];
 
 // Inicializar Verovio
 let verovioToolkit;
-document.addEventListener('DOMContentLoaded', async () => {
-  verovioToolkit = new verovio();
-  verovioToolkit.setOptions({
-    pageWidth: 300,
-    scale: 25,
-    adjustPageHeight: true,
-    header: 'none',
-    footer: 'none'
-  });
 
-  initDrag();
-  nuevoRitmo();
-});
+// ===== NAVEGACIÓN =====
+function irAModulo(modulo) {
+  document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+  document.getElementById(modulo).classList.add('activa');
+}
+
+function volverInicio() {
+  irAModulo('inicio');
+  resetNotas();
+  resetOido();
+  resetRitmo();
+}
 
 // ===== SONIDOS CON FREESOUND =====
-// IDs de FreeSound (licencia CC0 o CC-BY, verificadas)
 const sonidosFreeSound = {
-  'Do': '415351',   // https://freesound.org/people/InspectorJ/sounds/415351/
+  'Do': '415351',
   'Re': '415352',
   'Mi': '415353',
   'Fa': '415354',
   'Sol': '415355',
   'La': '415356',
   'Si': '415357',
-  'acorde_ascendente': '540634', // https://freesound.org/people/klankbeeld/sounds/540634/
-  'acorde_descendente': '540635' // https://freesound.org/people/klankbeeld/sounds/540635/
+  'acorde_ascendente': '540634',
+  'acorde_descendente': '540635'
 };
 
-// Pre-cargar sonidos
 const howlCache = {};
 
 async function cargarSonido(nombre) {
@@ -71,38 +69,22 @@ async function reproducirSonido(nombre) {
   if (sound) sound.play();
 }
 
-// ===== NAVEGACIÓN =====
-function irAModulo(modulo) {
-  document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-  document.getElementById(modulo).classList.add('activa');
-}
-
-function volverInicio() {
-  irAModulo('inicio');
-  resetNotas();
-  resetOido();
-  resetRitmo();
-}
-
 // ===== MÓDULO 1: NOTAS MUSICALES =====
 async function renderizarNotaEnPentagrama(elementoId, nota, clave = 'sol', interactivo = false) {
   const contenedor = document.getElementById(elementoId);
   contenedor.innerHTML = '';
 
-  // Mapeo de nombres a notación MEI
   const mapeoNotas = {
     'Do': 'c', 'Re': 'd', 'Mi': 'e', 'Fa': 'f', 'Sol': 'g', 'La': 'a', 'Si': 'b',
     'Do3': 'c', 'Re3': 'd', 'Mi3': 'e', 'Fa3': 'f', 'Sol3': 'g', 'La3': 'a', 'Si3': 'b',
-    'Do5': 'c', 'Re5': 'd', 'Mi5': 'e'
+    'Do5': 'c'
   };
 
   const octavas = {
     'Do': '4', 'Re': '4', 'Mi': '4', 'Fa': '4', 'Sol': '4', 'La': '4', 'Si': '4',
     'Do3': '3', 'Re3': '3', 'Mi3': '3', 'Fa3': '3', 'Sol3': '3', 'La3': '3', 'Si3': '3',
-    'Do5': '5', 'Re5': '5', 'Mi5': '5'
+    'Do5': '5'
   };
-
-  const clef = clave === 'sol' ? 'G2' : 'F4';
 
   const mei = `
   <mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="4.0.0">
@@ -132,7 +114,10 @@ async function renderizarNotaEnPentagrama(elementoId, nota, clave = 'sol', inter
   `;
 
   try {
-    const svg = verovioToolkit.renderData(mei, { format: 'svg' });
+    if (!verovioToolkit) {
+      verovioToolkit = new verovio();
+    }
+    const svg = verovioToolkit.renderData(mei, { format: 'svg', scale: 25 });
     contenedor.innerHTML = svg;
 
     if (interactivo) {
@@ -199,8 +184,6 @@ async function renderizarNotaEnPentagramaMini(contenedor, nota, clave) {
   div.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
   contenedor.appendChild(div);
 
-  const clef = clave === 'sol' ? 'G2' : 'F4';
-
   const mapeoNotas = {
     'Do': 'c', 'Re': 'd', 'Mi': 'e', 'Fa': 'f', 'Sol': 'g', 'La': 'a', 'Si': 'b',
     'Do3': 'c', 'Re3': 'd', 'Mi3': 'e', 'Fa3': 'f', 'Sol3': 'g', 'La3': 'a', 'Si3': 'b',
@@ -241,6 +224,9 @@ async function renderizarNotaEnPentagramaMini(contenedor, nota, clave) {
   `;
 
   try {
+    if (!verovioToolkit) {
+      verovioToolkit = new verovio();
+    }
     const svg = verovioToolkit.renderData(mei, { format: 'svg', scale: 15 });
     div.innerHTML = svg;
   } catch (e) {
@@ -266,17 +252,14 @@ async function generarPregunta() {
 
   notaActual = notas[Math.floor(Math.random() * notas.length)];
 
-  // Renderizar nota en pentagrama
   await renderizarNotaEnPentagrama('pentagrama-test', notaActual, claveActual);
 
-  // Generar opciones
   const opciones = [notaActual];
   while (opciones.length < 3) {
     let candidata = notas[Math.floor(Math.random() * notas.length)];
     if (!opciones.includes(candidata)) opciones.push(candidata);
   }
 
-  // Mezclar
   for (let i = opciones.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [opciones[i], opciones[j]] = [opciones[j], opciones[i]];
@@ -388,7 +371,6 @@ async function iniciarJuegoOido() {
   const notas = ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si'];
   notaActual = notas[Math.floor(Math.random() * notas.length)];
 
-  // Mostrar notas "fantasma"
   const contenedor = document.getElementById('notas-fantasma');
   contenedor.innerHTML = '';
 
@@ -400,7 +382,6 @@ async function iniciarJuegoOido() {
     contenedor.appendChild(item);
   }
 
-  // Reproducir Do de referencia
   await reproducirSonido('Do');
   setTimeout(async () => {
     await reproducirSonido(notaActual);
@@ -489,12 +470,10 @@ function nuevoRitmo() {
     compas.dataset.tiempoTotal = tiempos;
     compas.dataset.tiempoActual = 0;
 
-    // Línea del pentagrama
     const linea = document.createElement('div');
     linea.className = 'linea-ritmo';
     compas.appendChild(linea);
 
-    // Contenedor de huecos
     const contenido = document.createElement('div');
     contenido.style.display = 'flex';
     contenido.style.justifyContent = 'center';
@@ -546,7 +525,6 @@ function initDrag() {
         hueco.classList.add('hueco-lleno');
         hueco.style.background = '#e8f5e8';
 
-        // Verificar si todos están llenos
         const todosHuecos = document.querySelectorAll('.hueco-ritmo');
         const todosLlenos = Array.from(todosHuecos).every(h => h.classList.contains('hueco-lleno'));
         if (todosLlenos) {
@@ -561,7 +539,6 @@ function initDrag() {
 }
 
 function reproducirRitmo() {
-  // Aquí podrías integrar sonidos de percusión de FreeSound
   alert("¡Ritmo completado! 🥁");
 }
 
@@ -569,3 +546,13 @@ function resetRitmo() {
   document.getElementById('compases-ritmo').innerHTML = '';
   document.getElementById('btn-reproducir-ritmo').style.display = 'none';
 }
+
+// ===== INICIALIZAR =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Inicializar Verovio si no está listo
+  if (!verovioToolkit) {
+    verovioToolkit = new verovio();
+  }
+  initDrag();
+  nuevoRitmo();
+});
