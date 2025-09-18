@@ -115,7 +115,7 @@ async function renderizarNotaEnPentagrama(elementoId, nota, clave = 'sol', inter
 
   try {
     if (!verovioToolkit) {
-      verovioToolkit = new verovio();
+      verovioToolkit = new VerovioToolkit();
     }
     const svg = verovioToolkit.renderData(mei, { format: 'svg', scale: 25 });
     contenedor.innerHTML = svg;
@@ -156,23 +156,23 @@ function iniciarModoAprendizaje(clave) {
   grid.style.justifyContent = 'center';
   grid.style.gap = '20px';
 
-  // Usar for...of para permitir await en el loop
-  for (const nota of notas) {
-    const item = document.createElement('div');
-    item.style.textAlign = 'center';
+  (async () => {
+    for (const nota of notas) {
+      const item = document.createElement('div');
+      item.style.textAlign = 'center';
 
-    await renderizarNotaEnPentagramaMini(item, nota, clave);
-    
-    const nombre = document.createElement('div');
-    nombre.textContent = nota.replace('3', '').replace('5', '');
-    nombre.style.marginTop = '5px';
-    nombre.style.fontWeight = 'bold';
-    item.appendChild(nombre);
+      await renderizarNotaEnPentagramaMini(item, nota, clave);
+      
+      const nombre = document.createElement('div');
+      nombre.textContent = nota.replace('3', '').replace('5', '');
+      nombre.style.marginTop = '5px';
+      nombre.style.fontWeight = 'bold';
+      item.appendChild(nombre);
 
-    grid.appendChild(item);
-  }
-
-  pentagramaContainer.appendChild(grid);
+      grid.appendChild(item);
+    }
+    pentagramaContainer.appendChild(grid);
+  })();
 }
 
 async function renderizarNotaEnPentagramaMini(contenedor, nota, clave) {
@@ -226,7 +226,7 @@ async function renderizarNotaEnPentagramaMini(contenedor, nota, clave) {
 
   try {
     if (!verovioToolkit) {
-      verovioToolkit = new verovio();
+      verovioToolkit = new VerovioToolkit();
     }
     const svg = verovioToolkit.renderData(mei, { format: 'svg', scale: 15 });
     div.innerHTML = svg;
@@ -283,7 +283,6 @@ async function verificarRespuesta(respuesta) {
   const botones = document.querySelectorAll('.opcion');
   let correcto = false;
 
-  // Cambiado a for...of para permitir await dentro
   for (const btn of botones) {
     if (btn.textContent === respuesta.replace('3', '').replace('5', '')) {
       if (respuesta === notaActual) {
@@ -553,7 +552,7 @@ function resetRitmo() {
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     if (!verovioToolkit) {
-      verovioToolkit = new verovio();
+      verovioToolkit = new VerovioToolkit();
     }
     initDrag();
     nuevoRitmo();

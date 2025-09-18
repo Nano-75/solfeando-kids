@@ -10,14 +10,13 @@
   <!-- ✅ Favicon inline para evitar 404 -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
   
-  <!-- ✅ Verovio desde jsDelivr (evita error MIME) -->
-  <script src="https://cdn.jsdelivr.net/npm/verovio@4.0.0/verovio.js"></script>
-  
   <!-- ✅ Howler.js desde jsDelivr -->
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+  <!-- ✅ Verovio UMD oficial para navegador -->
+  <script src="https://www.verovio.org/javascript/latest/verovio-toolkit.js"></script>
   
   <!-- ✅ Política de seguridad actualizada -->
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net https://www.verovio.org 'unsafe-inline';">
 </head>
 <body>
 
