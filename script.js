@@ -12,7 +12,7 @@ let compasesRitmo = [];
 // Inicializar Verovio
 let verovioToolkit;
 document.addEventListener('DOMContentLoaded', async () => {
-  verovioToolkit = new verovio.toolkit();
+  verovioToolkit = new verovio();
   verovioToolkit.setOptions({
     pageWidth: 300,
     scale: 25,
