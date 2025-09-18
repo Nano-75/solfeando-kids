@@ -548,11 +548,15 @@ function resetRitmo() {
 }
 
 // ===== INICIALIZAR =====
-document.addEventListener('DOMContentLoaded', () => {
-  // Inicializar Verovio si no está listo
-  if (!verovioToolkit) {
-    verovioToolkit = new verovio();
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    if (!verovioToolkit) {
+      verovioToolkit = new verovio();
+    }
+    initDrag();
+    nuevoRitmo();
+  } catch (e) {
+    console.error("Error al inicializar Verovio:", e);
+    alert("No se pudo cargar Verovio. Por favor, recarga la página.");
   }
-  initDrag();
-  nuevoRitmo();
 });

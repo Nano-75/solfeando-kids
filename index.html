@@ -7,12 +7,17 @@
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Music&display=swap" rel="stylesheet">
   
-  <!-- ✅ Librerías desde CDN confiables -->
-  <script src="https://cdn.jsdelivr.net/npm/verovio@4.0.0/verovio.js"></script>
-  <script src="https://unpkg.com/howler@2.2.4/dist/howler.min.js"></script>
+  <!-- ✅ Favicon inline para evitar 404 -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
   
-  <!-- ✅ Política de seguridad para permitir scripts externos -->
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://unpkg.com 'unsafe-inline';">
+  <!-- ✅ Verovio desde jsDelivr (evita error MIME) -->
+  <script src="https://cdn.jsdelivr.net/npm/verovio@4.0.0/verovio.js"></script>
+  
+  <!-- ✅ Howler.js desde jsDelivr -->
+  <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+  
+  <!-- ✅ Política de seguridad actualizada -->
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';">
 </head>
 <body>
 
@@ -93,7 +98,7 @@
     <button onclick="volverInicio()" style="margin-top:10px;">Menú Principal</button>
   </div>
 
-  <!-- ✅ ¡IMPORTANTE! Cargar script.js AL FINAL -->
+  <!-- ✅ Script.js al final -->
   <script src="script.js"></script>
 </body>
 </html>
