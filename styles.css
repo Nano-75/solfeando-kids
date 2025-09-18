@@ -1,0 +1,241 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Fredoka One', cursive;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.pantalla {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+.pantalla.activa {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #5d4037;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #3e2723;
+  margin: 20px 0;
+}
+
+p {
+  font-size: 1.2em;
+  color: #4e342e;
+  margin: 15px 0;
+}
+
+.botones-inicio {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.btn-modulo {
+  background: #8bc34a;
+  color: white;
+  font-size: 1.4em;
+  padding: 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #689f38;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-modulo:hover {
+  background: #7cb342;
+}
+
+.btn-modulo:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #689f38;
+}
+
+button {
+  background: #ff7043;
+  color: white;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1em;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 10px 5px;
+  box-shadow: 0 4px 0 #f4511e;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background: #ff5722;
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #f4511e;
+}
+
+/* ===== VEROVIO CONTAINERS ===== */
+#pentagrama-aprendizaje,
+#pentagrama-test,
+#pentagrama-oido {
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* ===== NOTAS FANTASMA ===== */
+#notas-fantasma {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.nota-item {
+  padding: 15px;
+  background: #e3f2fd;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+
+.nota-item:hover {
+  background: #bbdefb;
+}
+
+.nota-item.correcta {
+  background: #c8e6c9 !important;
+  border-color: #4caf50;
+}
+
+.nota-item.error {
+  background: #ffcdd2 !important;
+  border-color: #f44336;
+}
+
+/* ===== RITMO ===== */
+.compas-ritmo {
+  width: 200px;
+  height: 80px;
+  background: white;
+  border: 2px solid #795548;
+  border-radius: 10px;
+  margin: 15px auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linea-ritmo {
+  position: absolute;
+  width: 80%;
+  height: 2px;
+  background: #555;
+  top: 50%;
+}
+
+.hueco-ritmo {
+  width: 50px;
+  height: 50px;
+  border: 2px dashed #ff9800;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+  background: #fff3e0;
+  font-family: 'Noto Music', sans-serif;
+  font-size: 24px;
+}
+
+.hueco-lleno {
+  border: 2px solid #4caf50;
+  background: #e8f5e8;
+}
+
+.figura-musical {
+  font-family: 'Noto Music', sans-serif;
+  font-size: 28px;
+  padding: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: grab;
+  margin: 5px;
+  transition: transform 0.2s;
+}
+
+.figura-musical:active {
+  transform: scale(1.1);
+  cursor: grabbing;
+}
+
+/* Feedback */
+.feedback {
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: bold;
+  margin: 20px auto;
+  max-width: 350px;
+  animation: fadeInOut 2s;
+  font-size: 1.1em;
+}
+
+.feedback.correcto {
+  background: #c8e6c9;
+  color: #2e7d32;
+  border: 2px solid #4caf50;
+}
+
+.feedback.error {
+  background: #ffcdd2;
+  color: #b71c1c;
+  border: 2px solid #f44336;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: scale(0.9); }
+  10% { opacity: 1; transform: scale(1); }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 2em; }
+  .btn-modulo { font-size: 1.2em; padding: 15px; }
+  .compas-ritmo { width: 160px; height: 70px; }
+  .figura-musical { font-size: 24px; }
+}
