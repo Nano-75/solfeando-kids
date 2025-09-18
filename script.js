@@ -156,7 +156,8 @@ function iniciarModoAprendizaje(clave) {
   grid.style.justifyContent = 'center';
   grid.style.gap = '20px';
 
-  notas.forEach(async nota => {
+  // Usar for...of para permitir await en el loop
+  for (const nota of notas) {
     const item = document.createElement('div');
     item.style.textAlign = 'center';
 
@@ -169,7 +170,7 @@ function iniciarModoAprendizaje(clave) {
     item.appendChild(nombre);
 
     grid.appendChild(item);
-  });
+  }
 
   pentagramaContainer.appendChild(grid);
 }
@@ -282,7 +283,8 @@ async function verificarRespuesta(respuesta) {
   const botones = document.querySelectorAll('.opcion');
   let correcto = false;
 
-  botones.forEach(btn => {
+  // Cambiado a for...of para permitir await dentro
+  for (const btn of botones) {
     if (btn.textContent === respuesta.replace('3', '').replace('5', '')) {
       if (respuesta === notaActual) {
         btn.classList.add('correcta');
@@ -296,16 +298,16 @@ async function verificarRespuesta(respuesta) {
         mostrarFeedback(`¡Casi! Era ${notaActual.replace('3', '').replace('5', '')} 🎼`, 'error');
       }
     }
-  });
+  }
 
   if (!correcto) {
-    botones.forEach(btn => {
+    for (const btn of botones) {
       if (btn.textContent === notaActual.replace('3', '').replace('5', '')) {
         setTimeout(() => {
           btn.classList.add('correcta');
         }, 500);
       }
-    });
+    }
   }
 
   setTimeout(() => {
@@ -392,7 +394,7 @@ async function verificarNotaOido(notaSeleccionada) {
   const items = document.querySelectorAll('.nota-item');
   let acierto = false;
 
-  items.forEach(item => {
+  for (const item of items) {
     if (item.textContent === notaSeleccionada) {
       if (notaSeleccionada === notaActual) {
         item.classList.add('correcta');
@@ -406,16 +408,16 @@ async function verificarNotaOido(notaSeleccionada) {
         mostrarFeedbackOido(`¡Casi! Era ${notaActual} 🎼`, 'error');
       }
     }
-  });
+  }
 
   if (!acierto) {
-    items.forEach(item => {
+    for (const item of items) {
       if (item.textContent === notaActual) {
         setTimeout(() => {
           item.classList.add('correcta');
         }, 500);
       }
-    });
+    }
   }
 
   setTimeout(() => {
@@ -560,3 +562,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     alert("No se pudo cargar Verovio. Por favor, recarga la página.");
   }
 });
+
+// ====== EXPONER FUNCIONES GLOBALES PARA HTML ONCLICK ======
+window.irAModulo = irAModulo;
+window.iniciarModoAprendizaje = iniciarModoAprendizaje;
+window.iniciarTest = iniciarTest;
+window.verificarRespuesta = verificarRespuesta;
+window.repetirTest = repetirTest;
+window.cambiarClave = cambiarClave;
+window.volverInicio = volverInicio;
+window.reproducirNotaReferencia = reproducirNotaReferencia;
+window.nuevoRitmo = nuevoRitmo;
+window.reproducirRitmo = reproducirRitmo;
