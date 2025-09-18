@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://unpkg.com 'unsafe-inline';">
   <title>Solfeando Kids 🎵</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Music&display=swap" rel="stylesheet">
   
   <!-- Verovio desde CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/verovio@4.0.0/build/verovio.js"></script>
+  <script src="https://unpkg.com/verovio@4.0.0/toolkit.js"></script>
   
   <!-- Howler.js para sonidos (ligero y potente) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+  <script src=https://unpkg.com/howler@2.2.4/dist/howler.min.js"></script>
 </head>
 <body>
   <div id="inicio" class="pantalla activa">
